@@ -1,5 +1,7 @@
 # datawall
 
+![](https://i.imgur.com/1T2Hrb5.gif) 
+
 ## Where we got our data
 
 As a sample, we took the money laundering dataset from [kaggle](https://www.kaggle.com/ntnu-testimon/paysim1). This data simulates what might happen between financial intstitutions.
