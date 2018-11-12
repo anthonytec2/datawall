@@ -16,7 +16,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 import itertools
 import time
-
+import os
 
 class AML(nn.Module):
     def __init__(self, D_in, D_out):
@@ -32,14 +32,16 @@ class AML(nn.Module):
         x = self.sig(x)
         return x
 
-
-model = AML(9, 2)
+if torch.cuda.is_available():
+    device = torch.device('cuda')
+else:
+    device = torch.device('cpu')
+model = AML(9, 1)
 writer = SummaryWriter()
 writer.add_graph(model, torch.autograd.Variable(
     torch.Tensor(9)))
 '''
-df = pd.read_csv(
-    '/Users/anthonybisulco/Documents/Cornell/Product Studio/datawall/data/full_ml_dataset.csv')
+df = pd.read_csv( os.path.join(os.getcwd(),'data/full_ml_dataset.csv')
 enc = LabelEncoder()
 enc.fit(df.type.values)
 df.type = enc.transform(df.type)
@@ -51,46 +53,56 @@ X = torch.Tensor(df.iloc[:, 0:9].values)
 load_data = torch.load('data.pt')
 X = load_data["X"]
 y = load_data["y"]
-criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
+criterion = nn.BCELoss()
+model=model.to(device)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.15, random_state=42)
 X_test = torch.Tensor(X_test)
 y_test = torch.Tensor(y_test)
-loader = TensorDataset(torch.Tensor(X_train), torch.Tensor(y_train))
-data = DataLoader(loader, batch_size=128, shuffle=True)
-
+loader = TensorDataset(torch.from_numpy(X_train).to(device), torch.from_numpy(y_train).to(device))
+data = DataLoader(loader, batch_size=16384, shuffle=True)
 j = 0
-for t in range(30):
-    for X, y in tqdm(data):
-        y_pred = model(X)
-        loss = criterion(y_pred, y.long())
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        writer.add_scalar('data/loss', loss, j)
-        j += 1
-        if j % 10:
-            s = time.time()
-            with torch.no_grad():
-                pred = torch.argmax(model(X_test), dim=1)
-            print(f'T1 {time.time()-s}')
-            res = confusion_matrix(y_test.numpy(), pred.numpy())
-            print(f'T2 {time.time()-s}')
-            fig = plt.figure(1)
-            plt.imshow(res, interpolation='nearest', cmap=plt.cm.Blues)
-            plt.title('Confusion Matrix')
-            plt.colorbar()
-            tick_marks = np.arange(2)
-            plt.xticks(tick_marks, ['Negative', 'Positive'], rotation=45)
-            plt.yticks(tick_marks, ['Negative', 'Positive'])
-            thresh = res.max() / 2.
-            for i, j in itertools.product(range(res.shape[0]), range(res.shape[1])):
-                plt.text(j, i, format(res[i, j], '.2f'),
-                         horizontalalignment="center",
-                         color="white" if res[i, j] > thresh else "black")
-            plt.ylabel('True label')
-            plt.xlabel('Predicted label')
-            plt.tight_layout()
-            writer.add_figure('Confusion Matrix/mat', fig, j)
-            print(time.time()-s)
+
+
+
+with torch.autograd.profiler.profile() as prof:
+    for t in range(1):
+        for X, y in tqdm(data):
+            y_pred = model(X)
+            loss = criterion(y_pred, y)
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            writer.add_scalar('data/loss', loss, j)
+            j += 1
+            if j%5==0:
+                print(loss)
+            '''
+            if j % 10:
+                s = time.time()
+                with torch.no_grad():
+                    pred = torch.argmax(model(X_test), dim=1)
+                print(f'T1 {time.time()-s}')
+                res = confusion_matrix(y_test.numpy(), pred.numpy())
+                print(f'T2 {time.time()-s}')
+                fig = plt.figure(1)
+                plt.imshow(res, interpolation='nearest', cmap=plt.cm.Blues)
+                plt.title('Confusion Matrix')
+                plt.colorbar()
+                tick_marks = np.arange(2)
+                plt.xticks(tick_marks, ['Negative', 'Positive'], rotation=45)
+                plt.yticks(tick_marks, ['Negative', 'Positive'])
+                thresh = res.max() / 2.
+                for i, j in itertools.product(range(res.shape[0]), range(res.shape[1])):
+                    plt.text(j, i, format(res[i, j], '.2f'),
+                            horizontalalignment="center",
+                            color="white" if res[i, j] > thresh else "black")
+                plt.ylabel('True label')
+                plt.xlabel('Predicted label')
+                plt.tight_layout()
+                writer.add_figure('Confusion Matrix/mat', fig, j)
+                print(time.time()-s)
+                '''
+    print(prof)
+print(prof)
