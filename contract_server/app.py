@@ -1,6 +1,6 @@
 
 import sys
-from flask import Flask
+from flask import Flask, request
 from pymongo import MongoClient
 from mongoengine import *
 import utils
@@ -15,6 +15,8 @@ class Company(Document):
     name = StringField(max_length=200, primary_key = True)
 class Contract(Document):
     name = StringField(max_length=200, primary_key = True)
+    content = StringField(max_length=2000000)
+    status = StringField()
     companies = ListField(ReferenceField(Company, reverse_delete_rule=CASCADE))
 
 @app.route("/")
@@ -25,9 +27,10 @@ def home():
 # CRUD to the company database:
 # create new company
 # companyName, contractName
-@app.route("/company/new/<company_name>", methods = ["PUT"])
-def create_company(company_name):
+@app.route("/company/new/", methods = ["POST"])
+def create_company():
     print "[in create_company]"
+    company_name = request.args["company_name"]
     found_companies = Company.objects(name = company_name)
     if len(found_companies) > 0:
         print "company existed"
@@ -35,6 +38,7 @@ def create_company(company_name):
     company = Company(name = company_name)
     company.save()
     return company_name
+
 
 @app.route("/company/<company_name>", methods = ["GET"])
 def get_company(company_name):
@@ -48,22 +52,37 @@ def get_company(company_name):
     else:
         return found_companies[0].name
 
-@app.route("/company/<company_name>/remove", methods = ["PUT"])
+@app.route("/company/remove/", methods = ["PUT"])
 def remove_company(company_name):
+    company_name = request.args["company_name"]
     # delete from companies collection
     Company.objects(name = company_name).delete()
     return "deleted"
 
 # CRUD to the contract database
 # create new contract
-@app.route("/contract/new/<contract_name>", methods = ["POST"])
-def create_contract(contract_name):
-    print "[in create_contract]" 
+@app.route("/contract/new/", methods = ["POST"])
+def create_contract():
+    print "[in create_contract]"
+    # get the name of company that proposes it
+    proposer_name = request.args["proposer"]
+    contract_name = request.args["contract_name"]
+    content = request.args["content"]
+    # parse minimum number of participants from content
+    if content is None:
+        content = ""
     found_contracts = Contract.objects(name = contract_name)
+    # if company doesn't exist in company list, create one.
+    
     if len(found_contracts) >= 1:
         return "Already existed"
     else:
-        new_contract = Contract(name = contract_name, companies = [])
+        # intialize a contract with 0 participant and 
+        new_contract = Contract(name = contract_name, 
+                                content = content, 
+                                status = "pending", 
+                                companies = [proposer_name]
+                                )
         new_contract.save()
         return "New contract created"
 
@@ -76,13 +95,15 @@ def get_contract(contract_name):
     else:
         return found_contracts.name
 
-@app.route("/contract/contract_name>/remove", methods = ["PUT"])
+@app.route("/contract/remove", methods = ["PUT"])
 def remove_contract(contract_name):
+    contract_name = request.args["contract_name"]
     Contract.objects(name = contract_name).delete()
     return "deleted"
 
-@app.route("/contract/<contract_name>/remove_company/<company_name>", methods = ["PUT"])
-def remove_company_from_contract(contract_name, company_name):
+@app.route("/dashboard/company/<company_name>/remove/", methods = ["PUT"])
+def remove_company_from_contract(company_name):
+    contract_name = request.args["contract_name"]
     found_contracts = Contract.objects(name = contract_name)
     if len(found_contracts) == 0:
         return "Contract not found"
@@ -93,8 +114,10 @@ def remove_company_from_contract(contract_name, company_name):
         found_contracts[0].update_one(pull__companies = found_companies[0])
         return "Company removed from contract"
 
-@app.route("/contract/<contract_name>/insert_company/<company_name>", methods = ["PUT"])
+
+@app.route("/contract/<contract_name>/insert", methods = ["PUT"])
 def insert_company_to_contract(contract_name, company_name):
+    company_name = request.args["company_name"]
     found_contracts = Contract.objects(name = contract_name)
     if len(found_contracts) == 0:
         return "Contract not found"
