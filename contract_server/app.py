@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from mongoengine import *
 import company
 import contract
-import utils
+import contract_content
 import json
 
 app = Flask(__name__)
@@ -61,12 +61,15 @@ def create_contract():
     try:
         proposer_name = request.args["proposer"]
         contract_name = request.args["contract_name"]
-        content = request.args["content"]
+        content_dict = {k:v for k,v in request.args.items() \
+                    if not k in ["proposer", "contract_name", "content"]}
     except:
         return "Not enough parameters in request"
+    content = contract_content.Content(content_dict)
+    content_text = content.to_str()
     new_contract = contract._create_contract(contract_name = contract_name, 
                                              proposer_name = proposer_name, 
-                                             content = content, 
+                                             content = content_text, 
                                              status = "pending", 
                                              companies = [proposer_name])
     if new_contract is None:
@@ -124,7 +127,40 @@ def insert_company_to_contract(contract_name):
 
 @app.route("/script", methods = ["GET"])
 def get_script_from_contract():
-    try:
-        contract_name = request.args["contract_name"]
-    except:
-        return "Not enough parameter in request"
+    return json.dumps(
+    {
+        "status": 1,
+        "script": '''print 'YOUR MACHINE IS LOCKED' ''',
+        "bucket_list": 
+        [
+            {
+                "company_name": "Citi",
+                "bucket_info": 
+                [
+                    {
+                        "bucket_name": "beardless bucket",
+                        "bucket_key": "key to beard"
+                    }
+                ]
+            },
+            {
+                "company_name": "JPM",
+                "bucket_info": 
+                [
+                    {
+                        "bucket_name": "toxic bucket",
+                        "bucket_key": "key to BBQ"
+                    }
+                ]
+            },   
+        ]
+    })
+    # try:
+    #     contract_name = request.args["contract_name"]
+    # except:
+    #     return "Not enough parameter in request"
+    # found_contract = contract._get_contract(contract_name)
+    # if found_contract is None:
+    #     return ""
+    # else:
+    #     return found_contract.content
