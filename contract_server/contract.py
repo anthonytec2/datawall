@@ -1,12 +1,12 @@
 from mongoengine import *
 import company
+import json
 
 class Contract(Document):
     name = StringField(max_length=200, primary_key = True)
     content = StringField(max_length=2000000)
     status = StringField()
     companies = ListField(ReferenceField(company.Company, reverse_delete_rule=CASCADE))
-
 
 def _get_contract(contract_name):
     found_contracts = Contract.objects(name = contract_name)
@@ -50,9 +50,10 @@ def _remove_company_from_contract(contract_name, company_name):
     if found_company is None:
         return 0
     company_names_list = [c.name for c in found_contract.companies]
-    if found_company.name in company_names_list:
+    if found_company.name not in company_names_list:
         return 0
-    found_contract.update_one(pull__companies = found_company)
+    Contract.objects(name = contract_name).update_one(pull__companies = found_company)
+
     return 1
 
 def _insert_company_to_contract(contract_name, company_name):
@@ -65,8 +66,13 @@ def _insert_company_to_contract(contract_name, company_name):
     company_names_list = [c.name for c in found_contract.companies]
     if found_company.name in company_names_list:
         return 0
-    found_contract.update_one(push__companies = found_company)
+    Contract.objects(name = contract_name).update_one(push__companies = found_company)
     return 1
 
 def _jsonify(contract):
-    return contract.name
+    return json.dumps({
+        "name": contract.name,
+        "content": contract.content,
+        "status": contract.status,
+        "companies": [c.name for c in contract.companies]
+    })

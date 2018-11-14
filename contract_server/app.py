@@ -116,7 +116,7 @@ def insert_company_to_contract(contract_name):
         company_name = request.args["company_name"]
     except:
         return "Not enough parameter in request"
-    inserted = contract._remove_company_from_contract(contract_name, company_name)
+    inserted = contract._insert_company_to_contract(contract_name, company_name)
     if inserted:
         return "company %s inserted to %s" % (company_name, contract_name)
     else:

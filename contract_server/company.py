@@ -1,4 +1,5 @@
 from mongoengine import *
+import json
 
 class Company(Document):
     name = StringField(max_length=200, primary_key = True)
@@ -25,6 +26,8 @@ def _remove_company(company_name):
     else:
         found_company.delete()
         return 1
-        
+
 def _jsonify(company):
-    return company.name
+    return json.dumps({
+        "name":company.name
+    })
