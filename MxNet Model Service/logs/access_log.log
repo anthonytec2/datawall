@@ -1,7 +1,0 @@
-2018-11-11 16:58:33,984 - /127.0.0.1:52029 "POST /predictions/dataWall HTTP/1.1" 404 54
-2018-11-11 17:08:11,301 - /127.0.0.1:52182 "PUT /predictions/dataWall HTTP/1.1" 200 5
-2018-11-11 17:09:05,457 - /127.0.0.1:52189 "POST /predictions/dataWall HTTP/1.1" 200 1
-2018-11-11 17:13:47,662 - /127.0.0.1:52217 "POST /predictions/dataWall HTTP/1.1" 200 6
-2018-11-11 17:14:15,428 - /127.0.0.1:52224 "POST /predictions/dataWall HTTP/1.1" 200 2
-2018-11-11 17:14:40,501 - /127.0.0.1:52230 "POST /predictions/dataWall HTTP/1.1" 200 1
-2018-11-11 17:14:59,734 - /127.0.0.1:52237 "POST /predictions/dataWall HTTP/1.1" 200 2
