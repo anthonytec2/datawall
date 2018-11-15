@@ -16,33 +16,12 @@ app = Flask(__name__)
 def home():
     return "you are at the homepage"
 
-def runmodel():
-    parsed_data = request.data
-    parsed_data = parsed_data.decode('utf-8')
-    parsed_list = []
-    parsed_data = parsed_data.split(',')
-    #parsed_list.remove('{')
-    #parsed_list.remove('}')
-    #parsed_list = list(map(np.float32, parsed_list))
-    #parsed_list = np.array(parsed_list)
-    #output = model.run(parsed_list)
-    #return f'{output[0]}'
-    print(parsed_data)
-    return 'something'
-
-
 @app.route('/', methods = ["POST"])
 def runmodel():
     parsed_data = request.data
     parsed_data = parsed_data.decode('utf-8')
     parsed_list = []
     parsed_data = parsed_data.split(',')
-    #parsed_list.remove('{')
-    #parsed_list.remove('}')
-    #parsed_list = list(map(np.float32, parsed_list))
-    #parsed_list = np.array(parsed_list)
-    #output = model.run(parsed_list)
-    #return f'{output[0]}'
     print(parsed_data)
     return 'something'
 
