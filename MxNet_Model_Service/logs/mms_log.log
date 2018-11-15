@@ -1,0 +1,114 @@
+2018-11-11 16:54:23,404 [INFO ] main com.amazonaws.ml.mms.ModelServer - 
+MMS Home: /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages
+Current directory: /Users/nissani/Desktop/Anthonys_Sanity
+Temp directory: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T/
+Config file: N/A
+Inference address: http://127.0.0.1:8080
+Management address: http://127.0.0.1:8081
+Number of GPUs: 0
+Model Store: N/A
+Initial Models: dataWall=dataWall.mar
+Log dir: /Users/nissani/Desktop/Anthonys_Sanity/logs
+Metrics dir: /Users/nissani/Desktop/Anthonys_Sanity/logs
+Blacklist Regex: N/A
+2018-11-11 16:54:23,412 [INFO ] main com.amazonaws.ml.mms.ModelServer - Loading initial models: dataWall.mar
+2018-11-11 16:54:23,479 [WARN ] main com.amazonaws.ml.mms.ModelServer - Failed to load model: dataWall.mar
+com.amazonaws.ml.mms.archive.ModelNotFoundException: Model store has not been configured.
+	at com.amazonaws.ml.mms.archive.ModelArchive.downloadModel(ModelArchive.java:81)
+	at com.amazonaws.ml.mms.wlm.ModelManager.registerModel(ModelManager.java:78)
+	at com.amazonaws.ml.mms.ModelServer.initModelStore(ModelServer.java:174)
+	at com.amazonaws.ml.mms.ModelServer.start(ModelServer.java:253)
+	at com.amazonaws.ml.mms.ModelServer.startAndWait(ModelServer.java:92)
+	at com.amazonaws.ml.mms.ModelServer.main(ModelServer.java:75)
+2018-11-11 16:54:23,483 [INFO ] main com.amazonaws.ml.mms.ModelServer - Initialize servers with: KQueueServerSocketChannel.
+2018-11-11 16:54:23,627 [INFO ] main com.amazonaws.ml.mms.ModelServer - Inference API listening on port: 8080
+2018-11-11 16:54:23,628 [INFO ] main com.amazonaws.ml.mms.ModelServer - Management API listening on port: 8081
+2018-11-11 17:03:41,892 [INFO ] main com.amazonaws.ml.mms.ModelServer - 
+MMS Home: /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages
+Current directory: /Users/nissani/Desktop/Anthonys_Sanity
+Temp directory: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T/
+Config file: N/A
+Inference address: http://127.0.0.1:8080
+Management address: http://127.0.0.1:8081
+Number of GPUs: 0
+Model Store: N/A
+Initial Models: dataWall=dataWall.mar
+Log dir: /Users/nissani/Desktop/Anthonys_Sanity/logs
+Metrics dir: /Users/nissani/Desktop/Anthonys_Sanity/logs
+Blacklist Regex: N/A
+2018-11-11 17:03:41,895 [INFO ] main com.amazonaws.ml.mms.ModelServer - Loading initial models: dataWall.mar
+2018-11-11 17:03:41,936 [WARN ] main com.amazonaws.ml.mms.ModelServer - Failed to load model: dataWall.mar
+com.amazonaws.ml.mms.archive.ModelNotFoundException: Model store has not been configured.
+	at com.amazonaws.ml.mms.archive.ModelArchive.downloadModel(ModelArchive.java:81)
+	at com.amazonaws.ml.mms.wlm.ModelManager.registerModel(ModelManager.java:78)
+	at com.amazonaws.ml.mms.ModelServer.initModelStore(ModelServer.java:174)
+	at com.amazonaws.ml.mms.ModelServer.start(ModelServer.java:253)
+	at com.amazonaws.ml.mms.ModelServer.startAndWait(ModelServer.java:92)
+	at com.amazonaws.ml.mms.ModelServer.main(ModelServer.java:75)
+2018-11-11 17:03:41,945 [INFO ] main com.amazonaws.ml.mms.ModelServer - Initialize servers with: KQueueServerSocketChannel.
+2018-11-11 17:03:42,016 [INFO ] main com.amazonaws.ml.mms.ModelServer - Inference API listening on port: 8080
+2018-11-11 17:03:42,017 [INFO ] main com.amazonaws.ml.mms.ModelServer - Management API listening on port: 8081
+2018-11-11 17:06:47,751 [INFO ] main com.amazonaws.ml.mms.ModelServer - 
+MMS Home: /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages
+Current directory: /Users/nissani/Desktop/Anthonys_Sanity
+Temp directory: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T/
+Config file: N/A
+Inference address: http://127.0.0.1:8080
+Management address: http://127.0.0.1:8081
+Number of GPUs: 0
+Model Store: /Users/nissani/Desktop/Anthonys_Sanity/models
+Initial Models: dataWall.mar
+Log dir: /Users/nissani/Desktop/Anthonys_Sanity/logs
+Metrics dir: /Users/nissani/Desktop/Anthonys_Sanity/logs
+Blacklist Regex: N/A
+2018-11-11 17:06:47,754 [INFO ] main com.amazonaws.ml.mms.ModelServer - Loading initial models: dataWall.mar
+2018-11-11 17:06:47,832 [INFO ] main com.amazonaws.ml.mms.wlm.ModelManager - Model dataWall loaded.
+2018-11-11 17:06:47,832 [DEBUG] main com.amazonaws.ml.mms.wlm.ModelManager - updateModel: dataWall, count: 4
+2018-11-11 17:06:47,852 [INFO ] main com.amazonaws.ml.mms.ModelServer - Initialize servers with: KQueueServerSocketChannel.
+2018-11-11 17:06:47,975 [INFO ] main com.amazonaws.ml.mms.ModelServer - Inference API listening on port: 8080
+2018-11-11 17:06:47,976 [INFO ] main com.amazonaws.ml.mms.ModelServer - Management API listening on port: 8081
+2018-11-11 17:06:47,984 [WARN ] pool-2-thread-1 com.amazonaws.ml.mms.metrics.MetricCollector - worker pid is not available yet.
+2018-11-11 17:06:48,043 [INFO ] W-9001-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - Listening on port: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9001
+2018-11-11 17:06:48,044 [INFO ] W-9001-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - [PID]24534
+2018-11-11 17:06:48,044 [INFO ] W-9001-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - MXNet worker started.
+2018-11-11 17:06:48,044 [INFO ] BackendWorker-9001 com.amazonaws.ml.mms.wlm.WorkerStateListener - dataWall worker state is: WORKER_STARTED
+2018-11-11 17:06:48,046 [INFO ] W-9000-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - Listening on port: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9000
+2018-11-11 17:06:48,047 [INFO ] W-9003-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - Listening on port: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9003
+2018-11-11 17:06:48,049 [INFO ] BackendWorker-9001 com.amazonaws.ml.mms.wlm.WorkerThread - Connecting to: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9001
+2018-11-11 17:06:48,050 [INFO ] W-9002-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - Listening on port: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9002
+2018-11-11 17:06:48,052 [INFO ] W-9002-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - [PID]24536
+2018-11-11 17:06:48,052 [INFO ] W-9002-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - MXNet worker started.
+2018-11-11 17:06:48,052 [INFO ] BackendWorker-9002 com.amazonaws.ml.mms.wlm.WorkerStateListener - dataWall worker state is: WORKER_STARTED
+2018-11-11 17:06:48,052 [INFO ] BackendWorker-9002 com.amazonaws.ml.mms.wlm.WorkerThread - Connecting to: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9002
+2018-11-11 17:06:48,056 [INFO ] W-9003-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - [PID]24535
+2018-11-11 17:06:48,063 [INFO ] W-9001-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - Connection accepted: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9001.
+2018-11-11 17:06:48,064 [INFO ] W-9002-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - Connection accepted: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9002.
+2018-11-11 17:06:48,064 [INFO ] W-9003-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - MXNet worker started.
+2018-11-11 17:06:48,064 [INFO ] BackendWorker-9003 com.amazonaws.ml.mms.wlm.WorkerStateListener - dataWall worker state is: WORKER_STARTED
+2018-11-11 17:06:48,064 [INFO ] BackendWorker-9003 com.amazonaws.ml.mms.wlm.WorkerThread - Connecting to: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9003
+2018-11-11 17:06:48,065 [INFO ] W-9003-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - Connection accepted: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9003.
+2018-11-11 17:06:48,066 [INFO ] W-9000-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - [PID]24537
+2018-11-11 17:06:48,066 [INFO ] W-9000-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - MXNet worker started.
+2018-11-11 17:06:48,067 [INFO ] BackendWorker-9000 com.amazonaws.ml.mms.wlm.WorkerStateListener - dataWall worker state is: WORKER_STARTED
+2018-11-11 17:06:48,067 [INFO ] BackendWorker-9000 com.amazonaws.ml.mms.wlm.WorkerThread - Connecting to: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9000
+2018-11-11 17:06:48,068 [INFO ] W-9000-stdout com.amazonaws.ml.mms.wlm.WorkerLifeCycle - Connection accepted: /var/folders/6j/v3_gy5k51vz64t5bmbwhdxdh0000gn/T//.mms.sock.9000.
+2018-11-11 17:06:48,088 [INFO ] BackendWorker-9002 com.amazonaws.ml.mms.wlm.WorkerThread - Backend response time: 9
+2018-11-11 17:06:48,088 [INFO ] BackendWorker-9003 com.amazonaws.ml.mms.wlm.WorkerThread - Backend response time: 9
+2018-11-11 17:06:48,088 [INFO ] BackendWorker-9001 com.amazonaws.ml.mms.wlm.WorkerThread - Backend response time: 9
+2018-11-11 17:06:48,089 [INFO ] BackendWorker-9002 com.amazonaws.ml.mms.wlm.WorkerStateListener - dataWall worker state is: WORKER_MODEL_LOADED
+2018-11-11 17:06:48,089 [INFO ] BackendWorker-9001 com.amazonaws.ml.mms.wlm.WorkerStateListener - dataWall worker state is: WORKER_MODEL_LOADED
+2018-11-11 17:06:48,089 [INFO ] BackendWorker-9003 com.amazonaws.ml.mms.wlm.WorkerStateListener - dataWall worker state is: WORKER_MODEL_LOADED
+2018-11-11 17:06:48,090 [INFO ] BackendWorker-9000 com.amazonaws.ml.mms.wlm.WorkerThread - Backend response time: 11
+2018-11-11 17:06:48,090 [INFO ] BackendWorker-9000 com.amazonaws.ml.mms.wlm.WorkerStateListener - dataWall worker state is: WORKER_MODEL_LOADED
+2018-11-11 17:08:11,299 [INFO ] BackendWorker-9002 com.amazonaws.ml.mms.wlm.WorkerThread - Backend response time: 1
+2018-11-11 17:08:11,302 [DEBUG] BackendWorker-9002 com.amazonaws.ml.mms.wlm.Job - Waiting time: 1, Backend time: 4
+2018-11-11 17:09:05,457 [INFO ] BackendWorker-9001 com.amazonaws.ml.mms.wlm.WorkerThread - Backend response time: 1
+2018-11-11 17:09:05,458 [DEBUG] BackendWorker-9001 com.amazonaws.ml.mms.wlm.Job - Waiting time: 0, Backend time: 2
+2018-11-11 17:13:47,660 [INFO ] BackendWorker-9003 com.amazonaws.ml.mms.wlm.WorkerThread - Backend response time: 1
+2018-11-11 17:13:47,663 [DEBUG] BackendWorker-9003 com.amazonaws.ml.mms.wlm.Job - Waiting time: 0, Backend time: 5
+2018-11-11 17:14:15,427 [INFO ] BackendWorker-9000 com.amazonaws.ml.mms.wlm.WorkerThread - Backend response time: 0
+2018-11-11 17:14:15,428 [DEBUG] BackendWorker-9000 com.amazonaws.ml.mms.wlm.Job - Waiting time: 0, Backend time: 2
+2018-11-11 17:14:40,501 [INFO ] BackendWorker-9002 com.amazonaws.ml.mms.wlm.WorkerThread - Backend response time: 1
+2018-11-11 17:14:40,502 [DEBUG] BackendWorker-9002 com.amazonaws.ml.mms.wlm.Job - Waiting time: 0, Backend time: 2
+2018-11-11 17:14:59,734 [INFO ] BackendWorker-9001 com.amazonaws.ml.mms.wlm.WorkerThread - Backend response time: 1
+2018-11-11 17:14:59,734 [DEBUG] BackendWorker-9001 com.amazonaws.ml.mms.wlm.Job - Waiting time: 1, Backend time: 1
