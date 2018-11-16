@@ -16,6 +16,8 @@ import gcpdata
 from google.cloud import storage
 import os
 import pickle
+import socket
+import sys
 def get_results(y_pred, y_test):
     number_flagged_right = np.sum(y_pred[y_test == 1] == 1)
     number_flagged_wrong = np.sum(y_test == 1)-number_flagged_right
@@ -35,7 +37,7 @@ def train(X_train, y_train, X_test, y_test, i):
     else:
         name = 'boa'
     weights = (y_train == 0).sum()/(1.0 * (y_train == 1).sum())
-    model = XGBClassifier(tree_method='gpu_exact', objective='binary:logistic',
+    model = XGBClassifier(tree_method='gpu_hist', objective='binary:logistic',
                           n_estimators=300, scale_pos_weight=weights, n_jobs=6)
     if name == 'citi':
         model.fit(X_train, y_train, eval_metric=['auc'])
@@ -90,13 +92,19 @@ def export_model( amnt_data, client):
     model.load_model('boa.model')
     output = open('model.pb', 'wb')
     pickle.dump([model, amnt_data], output)
+    output.close()
     bucket_test = client.get_bucket('traina-data') 
     blob_test = bucket_test.blob('model.pb')
     blob_test.upload_from_filename(filename='model.pb')
     os.remove('model.pb')
-    print('Exported Model Sucessfully')
+    print(Fore.GREEN+'Exported Model Sucessfully')
     return
-    
+def send_signal_infnode():
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_address = ('35.243.211.120', 10000)
+    print('Connecting to port')
+    sock.connect(server_address)
+    sock.close()
 def main():
     client = storage.Client.from_service_account_json('/home/abisulco/key.json')
     '''
@@ -127,6 +135,6 @@ def main():
         '''
     print('Model Finshed Training Begining Export')
     export_model({'boa':555, 'jpm':333, 'citi':1111}, client)
-    
+    send_signal_infnode()
 if __name__ == '__main__':
     main()
