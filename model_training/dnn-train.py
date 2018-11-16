@@ -63,8 +63,9 @@ model = AML(7, 2)
 writer = SummaryWriter()
 writer.add_graph(model, torch.autograd.Variable(
     torch.Tensor(7)))
-'''
+
 df = pd.read_csv(os.path.join(os.getcwd(), 'data/full_ml_dataset.csv'))
+print(df.head(5))
 enc = LabelEncoder()
 enc.fit(df.type.values)
 df.type = enc.transform(df.type)
@@ -73,7 +74,12 @@ res = df.drop(['nameOrig', 'nameDest'], axis=1)
 # df.nameOrig = df.nameOrig.apply(lambda x: hash(x))
 y = torch.Tensor(res.isFraud.values)
 X = torch.Tensor(res.iloc[:, 0:7].values)
-'''
+# torch.save('data.pt')
+
+torch.save({'X': X.detach().numpy(),
+            'y': y.detach().numpy()},
+           'data.pt')
+exit(-1)
 load_data = torch.load('data.pt')
 X = load_data["X"].numpy()
 y = load_data["y"].numpy()
