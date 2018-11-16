@@ -13,28 +13,14 @@ ADDRESS = "mongodb://datawall:datawall1@ds255403.mlab.com:55403/inf-node"
 DB_NAME = "datawall"
 connect(db = DB_NAME, host = ADDRESS)
 app = Flask(__name__)
-
-def wait_for_signal():
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_address = ('0.0.0.0', 10000)
-    sock.bind(server_address)
-    sock.listen(1)
-    while True:
-        print('Waiting for Connection')
-        connection, client_address = sock.accept()
-        break
-    connection.close()
-
-def load_model():
-    client = storage.Client.from_service_account_json('/home/abisulco/key.json')
-    bucket = client.get_bucket('traina-data')
-    blob = bucket.blob('model.pb')
-    blob.download_to_filename('model.pb')
-    file = open('model.pb', 'rb')
-    model, data_info  = pickle.load(file)
-    file.close()
-    os.remove('model.pb')
-    return model, data_info
+client = storage.Client.from_service_account_json('/home/abisulco/key.json')
+bucket = client.get_bucket('traina-data')
+blob = bucket.blob('model.pb')
+blob.download_to_filename('model.pb')
+file = open('model.pb', 'rb')
+model, data_info  = pickle.load(file)
+file.close()
+os.remove('model.pb')
 
 @app.route('/', methods = ["GET"])
 def home():
@@ -62,8 +48,4 @@ def calculate_payout(requestor, percent_dict, base_cost):
     return cost, comp_dw, comp_part
     
 if __name__ == '__main__':
-    wait_for_signal()
-    print('Loading up model')
-    model, data_info=load_model() 
-    print('Model Loaded Starting App')
     app.run(host = "0.0.0.0", port = 5000, debug = True)
