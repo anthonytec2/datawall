@@ -13,7 +13,9 @@ from colorama import Fore, Back, Style
 from colorama import init
 from sklearn.utils import shuffle
 import gcpdata
-
+from google.cloud import storage
+import os
+import pickle
 def get_results(y_pred, y_test):
     number_flagged_right = np.sum(y_pred[y_test == 1] == 1)
     number_flagged_wrong = np.sum(y_test == 1)-number_flagged_right
@@ -44,26 +46,87 @@ def train(X_train, y_train, X_test, y_test, i):
     model.save_model(f'{name}.model')
     return model
 
+def grab_data(i, client):
+    if i==-1:
+        print('Downloading Training Data')
+        bucket = client.get_bucket('traina-data')
+        blob = bucket.blob('test.csv')
+        blob.download_to_filename('test.csv')
+        data = np.genfromtxt('test.csv', delimiter=',')
+        X=data[:,0:7]
+        y=data[:,7]
+        os.remove("test.csv")
+    elif i==0:
+        print('Downloading Citi Data')
+        bucket = client.get_bucket('cit-data')
+        blob = bucket.blob('citi.csv')
+        blob.download_to_filename('citi.csv')
+        data = np.genfromtxt('citi.csv', delimiter=',')
+        X=data[:,0:7]
+        y=data[:,7]
+        os.remove("citi.csv")
+    elif i==1:
+        print('Downloading JPM Data')
+        bucket = client.get_bucket('jpm-data')
+        blob = bucket.blob('jpm.csv')
+        blob.download_to_filename('jpm.csv')
+        data = np.genfromtxt('jpm.csv', delimiter=',')
+        X=data[:,0:7]
+        y=data[:,7]
+        os.remove("jpm.csv")
+    elif i==2:
+        print('Downloading BOA Data')
+        bucket = client.get_bucket('boa-data')
+        blob = bucket.blob('boa.csv')
+        blob.download_to_filename('boa.csv')
+        data = np.genfromtxt('boa.csv', delimiter=',')
+        X=data[:,0:7]
+        y=data[:,7]
+        os.remove("boa.csv")
+    return X, y
 
+def export_model( amnt_data, client):
+    model = XGBClassifier()
+    model.load_model('boa.model')
+    output = open('model.pb', 'wb')
+    pickle.dump([model, amnt_data], output)
+    bucket_test = client.get_bucket('traina-data') 
+    blob_test = bucket_test.blob('model.pb')
+    blob_test.upload_from_filename(filename='model.pb')
+    os.remove('model.pb')
+    print('Exported Model Sucessfully')
+    return
+    
 def main():
+    client = storage.Client.from_service_account_json('/home/abisulco/key.json')
+    '''
     init()
     gcpdata.init_demo()
-    
+    client = storage.Client.from_service_account_json('/home/abisulco/key.json')
+    X_test, y_test=grab_data(-1, client)
+    amnt_data={}
     for i in range(3):
         if i == 0:
             print(Fore.RED+'--------CITI----DATA----TRAINING----------------------')
-            citi_X_train, citi_y_train, citi_X_test, citi_y_test=grab_data(i)
-            train(citi_X_train, citi_y_train, citi_X_test, citi_y_test, i)
-            del citi_X_train, citi_y_train, citi_X_test, citi_y_test
+            citi_X_train, citi_y_train=grab_data(i, client)
+            amnt_data['citi']=len(citi_y_train)
+            train(citi_X_train, citi_y_train, X_test, y_test, i)
+            del citi_X_train, citi_y_train
         elif i == 1:
             print(Fore.GREEN+'--------JPM----DATA----TRAINING----------------------')
-            jpm_X_train, jpm_y_train, jpm_X_test, jpm_y_test=grab_data(i)
-            train(jpm_X_train, jpm_y_train, jpm_X_test, jpm_y_test, i)
+            jpm_X_train, jpm_y_train=grab_data(i, client)
+            amnt_data['jpm']=len(jpm_y_train)
+            train(jpm_X_train, jpm_y_train, X_test, y_test, i)
+            del jpm_X_train, jpm_y_train
         elif i == 2:
             print(Fore.BLUE+'--------BOA----DATA----TRAINING----------------------')
-            boa_X_train, boa_y_train, boa_X_test, boa_y_test=grab_data(i)
-            model = train(boa_X_train, boa_y_train, boa_X_test, boa_y_test, i)
-
-
+            boa_X_train, boa_y_train=grab_data(i, client)
+            amnt_data['boa']=len(boa_X_train)
+            model = train(boa_X_train, boa_y_train, X_test, y_test, i)
+            del boa_X_train, boa_y_train
+        '''
+    print('Model Finshed Training Begining Export')
+    export_model({'boa':555, 'jpm':333, 'citi':1111}, client)
+    
 if __name__ == '__main__':
     main()
