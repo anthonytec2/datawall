@@ -75,7 +75,7 @@ def split(X, y, equal=False, prob_list=[.2,.5]):
     return citi_X_train, citi_X_test, citi_y_train, citi_y_test, jpm_X_train, jpm_X_test, jpm_y_train, jpm_y_test, boa_X_train, boa_X_test, boa_y_train, boa_y_test
 
 def init_demo():
-    load_data = torch.load('../data.pt')
+    load_data = torch.load('../data/data.pt')
     X = load_data["X"]
     y = load_data["y"]
     p1=np.random.uniform(0,.6)
