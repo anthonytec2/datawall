@@ -19,7 +19,8 @@ class ContractList extends Component {
       );
     }));
     return (
-      <div>
+      <div style = {{marginTop: "20px", 
+                     backgroundColor: "light gray"}}>
         {contractList}
       </div>
     );

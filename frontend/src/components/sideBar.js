@@ -12,7 +12,7 @@ class SideBar extends Component {
     }
     return (
       <React.Fragment>
-        <ButtonGroup vertical style = {{width:"100%"}}>
+        <ButtonGroup vertical style = {{width:"100%", marginTop: "20px"}}>
           <Button bsSize={"large"} bsStyle={"primary"} style={buttonStyle} onClick = {() => this.props.onContentSelected("MyContract")}>
                     My Contract
             </Button>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Panel } from 'react-bootstrap';
 
 class ContractListItem extends Component {
   constructor(props){
@@ -12,13 +12,28 @@ class ContractListItem extends Component {
     }
   }
   render() {
+    const sharpStyle = {
+      "borderRadius":0
+    };
+    let bsStyle = "warning";
+    if (this.state.contractStatus === "ready") {
+      bsStyle = "primary";
+    }
     return (
-      <div>
-        <p>{this.state.contractName}</p>
-        <p>{this.state.contractStatus}</p>
-        <p>{this.state.contractContent}</p>
-        <Button onClick = {() => this.props.onDetailSelected(this.state.contractName)}>Detail</Button>
-      </div>
+      <Panel style={sharpStyle} bsStyle={bsStyle}>
+        <Panel.Heading>
+          {this.state.contractName}
+        </Panel.Heading>
+        <Panel.Body>
+          <div>
+            Description:{this.state.contractContent}
+          </div>
+          <div>
+            Status:{this.state.contractStatus}
+          </div>
+          <Button style={sharpStyle} float={"right"} onClick = {() => this.props.onDetailSelected(this.state.contractName)}>Detail</Button>
+        </Panel.Body>
+      </Panel>
     );
   }
 }
