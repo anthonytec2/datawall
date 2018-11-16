@@ -10,7 +10,11 @@ from mongoengine import *
 import socket
 import sys
 from mongo import *
+import json
+from flask_cors import CORS, cross_origin
 app = Flask(__name__)
+cors=CORS(app)
+app.config['CORS_HEADERS']='Content-Type'
 client = storage.Client.from_service_account_json('/home/abisulco/key.json')
 bucket = client.get_bucket('traina-data')
 blob = bucket.blob('model.pb')
@@ -21,12 +25,16 @@ file.close()
 os.remove('model.pb')
 
 
-@app.route('/', methods=["GET"])
-def home():
-    return "you are at the homepage"
+@app.route('/cost_user/<user>', methods=["GET"])
+@cross_origin()
+def cost_user(user):
+    percent_dict={'boa':.33, 'jpm':.33, 'citi':.33}
+    cost, comp_dw, comp_part=calculate_payout(user, percent_dict)
+    return json.dumps({'cost':cost})
 
 
 @app.route('/inf', methods=["POST"])
+@cross_origin()
 def runmodel():
     parsed_data = request.get_json()
     print(parsed_data)
