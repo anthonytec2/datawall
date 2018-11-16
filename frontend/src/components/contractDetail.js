@@ -125,15 +125,3 @@ class ContractDetail extends Component {
 }
 
 export default ContractDetail;
-
-
-{/* <form>
-  <FormGroup controlId="formControlsTextarea">
-    <ControlLabel>Textarea</ControlLabel>
-    <FormControl 
-      componentClass="textarea" 
-      placeholder="textarea" 
-      value={this.state.queryText}
-      onChange={e => this.setState({queryText: e.target.value})}/>
-  </FormGroup>
-</form> */}
