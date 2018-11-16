@@ -1,17 +1,32 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 class SideBar extends Component {
   constructor(props){
     super(props);
   }
+
   render() {
+    const buttonStyle = {
+      "borderRadius":0
+    }
     return (
-      <div>
-        <p>This is the side bar</p>
-        <Button> button1 </Button>
-        <Button> button2 </Button>
-      </div>
+      <React.Fragment>
+        <ButtonGroup vertical style = {{width:"100%"}}>
+          <Button bsSize={"large"} bsStyle={"primary"} style={buttonStyle} onClick = {() => this.props.onContentSelected("MyContract")}>
+                    My Contract
+            </Button>
+            <Button bsSize={"large"} bsStyle={"primary"} style={buttonStyle} onClick = {() => this.props.onContentSelected("Explore")}>
+                  Explore
+            </Button>
+            <Button bsSize={"large"} bsStyle={"primary"} style={buttonStyle} onClick = {() => this.props.onContentSelected("Create")}>
+                  Create Contract
+            </Button>
+            <Button bsSize={"large"} bsStyle={"primary"} style={buttonStyle} onClick = {() => this.props.onContentSelected("Settings")}>
+                  Settings
+            </Button>
+        </ButtonGroup>
+      </React.Fragment>
     );
   }
 }

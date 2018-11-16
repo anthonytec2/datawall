@@ -13,8 +13,8 @@ class ContractList extends Component {
     const contractList = this.state.contracts.map(((contract, i) => {
       return (
         <ContractListItem 
-          contractName = {contract.name}
-          contractDescription = {contract.description}
+          contractInfo = {contract}
+          onDetailSelected = {this.props.onDetailSelected}
           key = {i}/>
       );
     }));

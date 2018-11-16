@@ -17,6 +17,7 @@ def _get_company(company_name):
     if len(found_companies) == 0:
         return None
     else:
+        
         return found_companies[0]
 
 def _remove_company(company_name):
@@ -28,6 +29,9 @@ def _remove_company(company_name):
         return 1
 
 def _jsonify(company):
-    return json.dumps({
+    return json.dumps(_to_dict(company))
+
+def _to_dict(company):
+    return {
         "name":company.name
-    })
+    }
