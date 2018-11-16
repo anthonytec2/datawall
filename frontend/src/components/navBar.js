@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { Navbar } from 'react-bootstrap';
 
 class NavBar extends Component {
+=======
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
+class MyNavBar extends Component {
+>>>>>>> 3b1944d66c1a02a183b471ccc5bc8da35f0e60e4
   constructor(props){
     super(props);
   }
   render() {
     return (
-      <div>
-        <Navbar>
+      <React.Fragment>
+        <Navbar style = {{margin: 0, padding: 0}}>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#home">dataWall</a>
+              <a href="#home">Datawall</a>
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
@@ -19,22 +24,13 @@ class NavBar extends Component {
               About
             </NavItem>
             <NavItem eventKey={2} href="#">
-              FAQ
-            </NavItem>
-            <NavItem eventKey={3} href="#">
-              Investor Something
-            </NavItem>
-            <NavItem eventKey={4} href="#">
-              Something that starts with a C
-            </NavItem>
-            <NavItem eventKey={5} href="#">
-              We're Hiring!
+              Career
             </NavItem>
           </Nav>
         </Navbar>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-export default NavBar;
+export default MyNavBar;

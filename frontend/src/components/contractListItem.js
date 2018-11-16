@@ -5,23 +5,19 @@ class ContractListItem extends Component {
   constructor(props){
     super(props);
     this.state = {
-      contractName: props.contractName,
-      contractInfo: props.description,
-      companyList: props.company
+      contractName: props.contractInfo.name,
+      contractStatus: props.contractInfo.status,
+      companyList: props.contractInfo.companies,
+      contractContent: props.contractInfo.content
     }
   }
   render() {
-    const companyTag = this.state.companyTag.map((company, i) => {
-      return (
-        <Button text = {company} key = {i} />
-      );
-    });
     return (
       <div>
         <p>{this.state.contractName}</p>
-        <p>{this.state.description}</p>
-        
-        <Button>Detail</Button>
+        <p>{this.state.contractStatus}</p>
+        <p>{this.state.contractContent}</p>
+        <Button onClick = {() => this.props.onDetailSelected(this.state.contractName)}>Detail</Button>
       </div>
     );
   }
