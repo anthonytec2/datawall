@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
-import { Navbar } from 'react-bootstrap';
 
 class ContractDetail extends Component {
   constructor(props){
