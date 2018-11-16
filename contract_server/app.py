@@ -6,18 +6,25 @@ import company
 import contract
 import contract_content
 import json
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+
 ADDRESS = "mongodb://datawall:datawall123@ds159273.mlab.com:59273/datawall"    
 DB_NAME = "datawall"
 connect(db = DB_NAME, host = ADDRESS)
 
 @app.route("/")
+@cross_origin()
 def home():
     print "[in home]"
     return "created app! "
 
 @app.route("/company/new", methods = ["POST"])
+@cross_origin()
 def create_company():
     print "[in create_company]"
     try:
@@ -30,8 +37,8 @@ def create_company():
     else:
         return company._jsonify(found_company)
 
-
 @app.route("/company/<company_name>", methods = ["GET"])
+@cross_origin()
 def get_company(company_name):
     print "[in get_company]"
     found_company = company._get_company(company_name)
@@ -40,7 +47,18 @@ def get_company(company_name):
     else:
         return company._jsonify(found_company)
 
+@app.route("/company/<company_name>/contracts", methods = ["GET"])
+@cross_origin()
+def get_company_contracts(company_name):
+    print "[in get_company]"
+    found_contracts = contract._get_contracts_of_company(company_name)
+    return json.dumps({
+        "company":company_name,
+        "contracts":[contract._to_dict(c) for c in found_contracts]
+    })
+
 @app.route("/company/remove", methods = ["PUT"])
+@cross_origin()
 def remove_company():
     try:
         company_name = request.args["company_name"]
@@ -55,6 +73,7 @@ def remove_company():
 
 # CRUD to the contract database
 @app.route("/contract/new", methods = ["POST"])
+@cross_origin()
 def create_contract():
     print "[in create_contract]"
     # get the name of company that proposes it
@@ -80,6 +99,7 @@ def create_contract():
     
 
 @app.route("/contract/<contract_name>", methods = ["GET"])
+@cross_origin()
 def get_contract(contract_name):
     print "[in get_contract]"
     found_contract = contract._get_contract(contract_name)
@@ -88,7 +108,17 @@ def get_contract(contract_name):
     else:
         return contract._jsonify(found_contract)
 
+@app.route("/contract/all", methods = ["GET"])
+@cross_origin()
+def get_all_contracts():
+    print "[in get_contract]"
+    found_contracts = contract._get_all_contracts()
+    return json.dumps({
+        "contracts": [contract._to_dict(c) for c in found_contracts]
+    })
+
 @app.route("/contract/remove", methods = ["PUT"])
+@cross_origin()
 def remove_contract():
     try:
         contract_name = request.args["contract_name"]
@@ -101,6 +131,7 @@ def remove_contract():
         return "Contract not found"
 
 @app.route("/contract/<contract_name>/remove", methods = ["PUT"])
+@cross_origin()
 def remove_company_from_contract(contract_name):
     try:
         company_name = request.args["company_name"]
@@ -114,6 +145,7 @@ def remove_company_from_contract(contract_name):
 
 
 @app.route("/contract/<contract_name>/insert", methods = ["PUT"])
+@cross_origin()
 def insert_company_to_contract(contract_name):
     try:
         company_name = request.args["company_name"]
@@ -126,6 +158,7 @@ def insert_company_to_contract(contract_name):
         return "failure to insert %s to %s" % (company_name, contract_name)
 
 @app.route("/script", methods = ["GET"])
+@cross_origin()
 def get_script_from_contract():
     return json.dumps(
     {

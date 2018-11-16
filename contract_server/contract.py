@@ -15,6 +15,15 @@ def _get_contract(contract_name):
     else:
         return found_contracts[0]
 
+def _get_all_contracts():
+    found_contracts = Contract.objects
+    return found_contracts
+    
+def _get_contracts_of_company(company_name):
+    found_contracts = Contract.objects
+    return [contract for contract in found_contracts \
+        if company_name in [company.name for company in contract.companies]]
+
 def _create_contract(contract_name, proposer_name, content, status, companies):
     if content is None:
         content = ""
@@ -69,10 +78,13 @@ def _insert_company_to_contract(contract_name, company_name):
     Contract.objects(name = contract_name).update_one(push__companies = found_company)
     return 1
 
-def _jsonify(contract):
-    return json.dumps({
+def _to_dict(contract):
+    return {
         "name": contract.name,
         "content": contract.content,
         "status": contract.status,
         "companies": [c.name for c in contract.companies]
-    })
+    }
+    
+def _jsonify(contract):
+    return json.dumps(_to_dict(contract))
