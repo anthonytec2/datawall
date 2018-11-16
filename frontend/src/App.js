@@ -1,25 +1,56 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ContractList from './components/contractList'
+import SideBar from './components/sideBar';
+import NavBar from  './components/navBar';
 
 class App extends Component {
+  constructor(props){
+    // This is the contract and company dictionary used for test only
+    const contracts = [
+      {
+        "name":"contract1",
+        "description": "we will sell all your data",
+        "company":[
+          "jpm", "citi"
+        ],
+        "rules": "rule1"
+      },
+      {
+        "name":"contract2",
+        "description":"your data will sell us all",
+        "company":[
+          "boa", "capitalone"
+        ],
+        "rules": "rule2"
+      },
+      {
+        "name":"contract3",
+        "description":"use malicious data",
+        "company":[
+          "boa", "capitalone", "citi"
+        ],
+        "rules": "rule1"
+      }
+    ]
+    // end of testing contract
+    super(props);
+    this.state = {contracts:contracts}; //it is an array
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <div>
+          <NavBar />
+        </div>
+        <div  class="grid-container">
+          <div>
+            <SideBar />
+          </div>
+          <div>
+            <p>hello this is the homepage</p>
+            <ContractList contracts = {this.state.contracts}/>
+          </div>
+        </div>
       </div>
     );
   }
