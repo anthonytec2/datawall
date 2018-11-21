@@ -92,7 +92,9 @@ class ContractDetail extends Component {
             <div>
               <p>Current Price Per Query: {this.state.currentPrice}</p>  
             </div>
-            <Button style={sharpStyle}> Contribute </Button> 
+            <Button style={sharpStyle} 
+                    onClick = {() => this.props.onContributeSelected(this.state.contractInfo.name)}
+                    > Contribute </Button> 
           </Panel.Body>
         </Panel>
         <Panel style={sharpStyle}>

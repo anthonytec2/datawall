@@ -6,6 +6,7 @@ import CreateContract from './components/createContract';
 import SettingsPage from './components/settingsPage';
 import ContractDetail from './components/contractDetail';
 import NavBar from './components/navBar';
+import ContributeContract from './components/contributeContract';
 import { Grid, Row, Col } from "react-bootstrap";
 class HomePage extends Component {
   constructor(props){
@@ -15,7 +16,8 @@ class HomePage extends Component {
         contentState: undefined,
         myContracts: undefined,
         globalContracts: undefined,
-        contractDetail: undefined
+        contractDetail: undefined,
+        contributeContract: undefined
     }
   }
   componentDidMount(){
@@ -53,6 +55,11 @@ class HomePage extends Component {
       this.setState({contentState : "ExploreDetail", contractDetail:selectedContract})
     }
   }
+  onContributeSelected = (contractName) => {
+    console.log("contributed selected for ", contractName);
+    this.setState({contentState: "Contribute",
+                   contributeContract: contractName});
+  }
   render() {
     let displayContent = undefined;
     console.log("[render] current content is ", this.state.contentState);
@@ -77,14 +84,22 @@ class HomePage extends Component {
       displayContent = <ContractDetail 
                         membership = {true}
                         contractInfo = {this.state.contractDetail}
+                        onContributeSelected = {this.onContributeSelected}
                         />
     } else if (this.state.contentState === "ExploreDetail") {
       console.log("showing details of ", this.state.contractDetail);
       displayContent = <ContractDetail 
                         membership = {false}
                         contractInfo = {this.state.contractDetail}
+                        onContributeSelected = {this.onContributeSelected}
                         />
-    }else {
+    } else if (this.state.contentState === "Contribute") {
+      console.log("on contribute page, contract name is ", this.state.contributeContract);
+      displayContent = <ContributeContract
+                        companyName = {"Citi"}
+                        contractName = {this.state.contributeContract}
+                        />
+    } else {
       displayContent = undefined;
     }
     console.log(displayContent);
