@@ -37,14 +37,14 @@ def runmodel():
     model._le = LabelEncoder().fit([0, 1])    
     return str(model.predict(np.expand_dims(np.array(input_data),0)))
 
-def calculate_payout(requestor, percent_dict, base_cost):
+def calculate_payout(User, percent_dict, base_cost = 10000):
     comp_part = []
     comp_dw = 0
     for participant in percent_dict:
-        if participant == requestor:
-            comp_part.append((participant, (.985 * base_cost * percent_dict[participant] * (1-percent_dict[requestor])**2) / (1-percent_dict[requestor])))
-            comp_dw += (.015 * base_cost * percent_dict[participant] * (1-percent_dict[requestor])**2) / (1-percent_dict[requestor])
-    cost = base_cost * (1 - percent_dict[requestor])**2
+        if participant != User:
+            comp_part.append((participant, (.985 * base_cost * percent_dict[participant] * (1-percent_dict[User])**2) / (1-percent_dict[User])))
+            comp_dw += (.015 * base_cost * percent_dict[participant] * (1-percent_dict[User])**2) / (1-percent_dict[User])
+    cost = base_cost * (1 - percent_dict[User])**2
     return cost, comp_dw, comp_part
     
 if __name__ == '__main__':
