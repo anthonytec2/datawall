@@ -55,6 +55,10 @@ class HomePage extends Component {
       this.setState({contentState : "ExploreDetail", contractDetail:selectedContract})
     }
   }
+  onDashboardSelected = () => {
+    console.log("dashboard selected");
+    this.setState({contentState: "Dashboard"});
+  }
   onContributeSelected = (contractName) => {
     console.log("contributed selected for ", contractName);
     this.setState({contentState: "Contribute",
@@ -99,7 +103,11 @@ class HomePage extends Component {
                         companyName = {"Citi"}
                         contractName = {this.state.contributeContract}
                         />
-    } else {
+    } else if (this.state.contentState === "Dashboard") {
+      displayContent = <div>
+                        This is the dashboard
+                       </div>
+    }else {
       displayContent = undefined;
     }
     console.log(displayContent);

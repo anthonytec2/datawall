@@ -25,6 +25,9 @@ class SideBar extends Component {
             <Button bsSize={"large"} bsStyle={"primary"} style={buttonStyle} onClick = {() => this.props.onContentSelected("Settings")}>
                   Settings
             </Button>
+            <Button bsSize={"large"} bsStyle={"primary"} style={buttonStyle} onClick = {() => this.props.onContentSelected("Dashboard")}>
+                  Dashboard
+            </Button>
         </ButtonGroup>
       </React.Fragment>
     );
