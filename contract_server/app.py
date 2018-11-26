@@ -20,13 +20,11 @@ connect(db = DB_NAME, host = ADDRESS)
 @app.route("/")
 @cross_origin()
 def home():
-    print "[in home]"
     return "created app! "
 
 @app.route("/company/new", methods = ["POST"])
 @cross_origin()
 def create_company():
-    print "[in create_company]"
     try:
         company_name = request.args["company_name"]
     except:
@@ -40,7 +38,6 @@ def create_company():
 @app.route("/company/<company_name>", methods = ["GET"])
 @cross_origin()
 def get_company(company_name):
-    print "[in get_company]"
     found_company = company._get_company(company_name)
     if found_company is None:
         return "company not found"
@@ -50,7 +47,6 @@ def get_company(company_name):
 @app.route("/company/<company_name>/contracts", methods = ["GET"])
 @cross_origin()
 def get_company_contracts(company_name):
-    print "[in get_company]"
     found_contracts = contract._get_contracts_of_company(company_name)
     return json.dumps({
         "company":company_name,
@@ -75,7 +71,6 @@ def remove_company():
 @app.route("/contract/new", methods = ["POST"])
 @cross_origin()
 def create_contract():
-    print "[in create_contract]"
     # get the name of company that proposes it
     try:
         proposer_name = request.args["proposer"]
@@ -101,7 +96,6 @@ def create_contract():
 @app.route("/contract/<contract_name>", methods = ["GET"])
 @cross_origin()
 def get_contract(contract_name):
-    print "[in get_contract]"
     found_contract = contract._get_contract(contract_name)
     if found_contract is None:
         return "Contract not found"
@@ -111,7 +105,6 @@ def get_contract(contract_name):
 @app.route("/contract/all", methods = ["GET"])
 @cross_origin()
 def get_all_contracts():
-    print "[in get_contract]"
     found_contracts = contract._get_all_contracts()
     return json.dumps({
         "contracts": [contract._to_dict(c) for c in found_contracts]

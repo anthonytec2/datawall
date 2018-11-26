@@ -93,7 +93,7 @@ class HomePage extends Component {
         <Row className="show-grid">
          <NavBar/>
         </Row>
-        <Row className="show-grid" STYLE = {{height: "100%"}}>
+        <Row className="show-grid" style = {{height: "100%"}}>
           <Col xs={6} lg={3}>
           <SideBar onContentSelected = {this.onContentChange}/>
           </Col>
@@ -104,19 +104,6 @@ class HomePage extends Component {
           </Col>
         </Row>
       </Grid>
-      // <div className ="tight" style = {{height:"100%"}}>
-      //   <NavBar />
-      //   <div className = "tight" style = {{height:"100%"}}>
-      //     <div className="row tight">
-      //       <div className = "col-lg-3" style={{backgroundColor: "#FF0000"}}>
-      //         <SideBar onContentSelected = {this.onContentChange}/>
-      //       </div>
-      //       <div className = "col-lg-9" style={{backgroundColor: "black"}}>
-      //          {displayContent}
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>
     );
   }
 }

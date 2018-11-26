@@ -11,7 +11,8 @@ from mongoengine import *
 import socket
 import sys
 import subprocess
-
+import mongo
+import time
 def wait_for_signal():
     print('Waiting For Signal')
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -25,8 +26,18 @@ def wait_for_signal():
     connection.close()
 
 if __name__=="__main__":
+    mongo.set_zero()
+    
     wait_for_signal()
+    '''
+    client = storage.Client.from_service_account_json('/home/abisulco/key.json')
+    bucket = client.get_bucket('traina-data')
+    blob = bucket.blob('model.pb')
+    print(blob)
+    blob.download_to_filename('./model.pb')
     print('Connected Starting Server')
+    time.sleep(5)
+    '''
     proc = subprocess.Popen(['python3' ' /home/abisulco/datawall/Inference_Service/model_flask.py'],
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT, shell=True)

@@ -17,7 +17,8 @@ class Content:
             # required participants
             self.required_participants = content_dict["required_participants"]
         except:
-            print "Not enough params to build contract content"
+            # print "Not enough params to build contract content"
+            pass
     
     def to_str(self):
         return self.content_text
