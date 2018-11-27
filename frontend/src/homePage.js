@@ -23,7 +23,7 @@ class HomePage extends Component {
   componentDidMount() {
     let myContracts = undefined;
     let globalContracts = undefined;
-    axios.get(`company/jpm/contracts`)
+    axios.get(`company/citi/contracts`)
       .then(res => {
         myContracts = res.data.contracts;
         // console.log(myContracts);

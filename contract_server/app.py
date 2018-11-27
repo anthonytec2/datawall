@@ -48,10 +48,11 @@ def get_company(company_name):
 @cross_origin()
 def get_company_contracts(company_name):
     found_contracts = contract._get_contracts_of_company(company_name)
-    return json.dumps({
+    contracts_info = json.dumps({
         "company":company_name,
         "contracts":[contract._to_dict(c) for c in found_contracts]
     })
+    return contracts_info
 
 @app.route("/company/remove", methods = ["PUT"])
 @cross_origin()
