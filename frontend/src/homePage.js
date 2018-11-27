@@ -106,6 +106,7 @@ class HomePage extends Component {
     } else if (this.state.contentState === "Dashboard") {
       displayContent = <div>
                         This is the dashboard
+                        <iframe src="https://www.google.com"></iframe> 
                        </div>
     }else {
       displayContent = undefined;
