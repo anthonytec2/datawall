@@ -11,8 +11,8 @@ class MyNavBar extends Component {
           <Navbar.Header>
             <Navbar.Brand>
             <img
-              style={{padding: 0, width: 245, height: 75}}
-              src={require('./datawall_black.png')} />
+              style={{width: 200, height: 80}}
+              src={require('./datawall_blue.png')} />
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
