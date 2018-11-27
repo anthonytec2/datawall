@@ -20,7 +20,7 @@ class MyNavBar extends Component {
               <h1 style={{margin:0, textAlign: "center"}}> About </h1>
             </NavItem>
             <NavItem style={{paddingTop:0}} eventKey={2} href="#">
-              <h1 style={{margin:0, textAlign: "center"}}> Career </h1>
+              <h1 style={{margin:0, textAlign: "center"}}> Careers </h1>
             </NavItem>
           </Nav>
         </Navbar>

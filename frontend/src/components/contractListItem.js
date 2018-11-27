@@ -32,7 +32,7 @@ class ContractListItem extends Component {
           <div>
             Status:{this.state.contractStatus}
           </div>
-          <Button style={sharpStyle} float={"right"} onClick = {() => this.props.onDetailSelected(this.state.contractName)}>Detail</Button>
+          <Button style={sharpStyle} float={"right"} onClick = {() => this.props.onDetailSelected(this.state.contractName)}>Details</Button>
         </Panel.Body>
       </Panel>
     );
