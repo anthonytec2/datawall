@@ -7,7 +7,7 @@ class MyNavBar extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar style={{ margin: 0, padding: 0 }}>
+        <Navbar style={{margin: 0, paddingBottom: 0, paddingTop: 0, height: 90}}>
           <Navbar.Header>
             <Navbar.Brand>
             <img
