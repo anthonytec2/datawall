@@ -10,15 +10,17 @@ class MyNavBar extends Component {
         <Navbar style={{ margin: 0, padding: 0 }}>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#home">Datawall</a>
+            <img
+              style={{width: 245, height: 125}}
+              src={require('./datawall_black.png')} />
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
-            <NavItem eventKey={1} href="#">
-              About
+            <NavItem eventKey={1} href="#"a>
+              <h1 style={{textAlign: "center"}}> About </h1>
             </NavItem>
             <NavItem eventKey={2} href="#">
-              Careers
+              <h1 style={{textAlign: "center"}}> Career </h1>
             </NavItem>
           </Nav>
         </Navbar>
