@@ -7,20 +7,20 @@ class MyNavBar extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar style={{margin: 0, paddingBottom: 0, paddingTop: 0, height: 90}}>
+        <Navbar style={{margin: 0, paddingBottom: 0, paddingTop: 0}}>
           <Navbar.Header>
             <Navbar.Brand>
             <img
-              style={{width: 245, height: 125}}
+              style={{padding: 0, width: 245, height: 75}}
               src={require('./datawall_black.png')} />
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
-            <NavItem eventKey={1} href="#"a>
-              <h1 style={{textAlign: "center"}}> About </h1>
+            <NavItem style={{paddingTop:0}} eventKey={1} href="#"a>
+              <h1 style={{margin:0, textAlign: "center"}}> About </h1>
             </NavItem>
-            <NavItem eventKey={2} href="#">
-              <h1 style={{textAlign: "center"}}> Career </h1>
+            <NavItem style={{paddingTop:0}} eventKey={2} href="#">
+              <h1 style={{margin:0, textAlign: "center"}}> Career </h1>
             </NavItem>
           </Nav>
         </Navbar>
