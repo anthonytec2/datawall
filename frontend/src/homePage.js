@@ -113,10 +113,10 @@ class HomePage extends Component {
     }
     console.log(displayContent);
     return (
-      <Grid style = {{padding: 0, margin: 0, width : "100%", height: "100%"}}>
+      <Grid style = {{padding: 0, margin: 0, width : "100%", height: "100%", fontSize:"3em"}}>
         <Row className="show-grid">
          <NavBar/>
-        </Row>
+        </Row>  
         <Row className="show-grid" style = {{height: "100%"}}>
           <Col xs={6} lg={3}>
           <SideBar onContentSelected = {this.onContentChange}/>

@@ -8,7 +8,8 @@ class SideBar extends Component {
 
   render() {
     const buttonStyle = {
-      "borderRadius":0
+      "borderRadius":0,
+      "fontSize":"30px"
     }
     return (
       <React.Fragment>
