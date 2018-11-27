@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 class MyNavBar extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
   render() {
     return (
       <React.Fragment>
-        <Navbar style = {{margin: 0, padding: 0}}>
+        <Navbar style={{ margin: 0, padding: 0 }}>
           <Navbar.Header>
             <Navbar.Brand>
               <a href="#home">Datawall</a>
@@ -18,7 +18,7 @@ class MyNavBar extends Component {
               About
             </NavItem>
             <NavItem eventKey={2} href="#">
-              Career
+              Careers
             </NavItem>
           </Nav>
         </Navbar>
