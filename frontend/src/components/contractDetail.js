@@ -35,6 +35,7 @@ class ContractDetail extends Component {
     this.setState({queryResult:0});
     axios.post(`http://35.243.211.120:5000/inf`,params)
     .then(function (response) {
+      console.log(response.data[0]);
       // this.setState({queryResult:response.data[0]});
     })
     .catch(function (error) {
