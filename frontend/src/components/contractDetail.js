@@ -47,12 +47,12 @@ class ContractDetail extends Component {
   render() {
     const sharpStyle = {
       "borderRadius":0,
-      "fontSize": "20px"
+      "fontSize": "30px"
     };
     const tagStyle = {
       "borderRadius":0,
       "margin": "5px",
-      "fontSize": "20px"
+      "fontSize": "30px"
     };
     let companyList = this.state.contractInfo.companies.map(
       (companyName, i) => {

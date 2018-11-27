@@ -14,7 +14,7 @@ class ContractListItem extends Component {
   render() {
     const sharpStyle = {
       "borderRadius":0,
-      "fontSize":"20px"
+      "fontSize":"30px"
     };
     let bsStyle = "warning";
     if (this.state.contractStatus === "ready") {
