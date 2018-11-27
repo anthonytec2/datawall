@@ -33,7 +33,8 @@ class ContributeContract extends Component {
           <Panel.Body>
             <div>
               {this.props.contractName}
-              <p>Data Contribution rules</p>
+              <p>Data Format: ["amount_local_currency:int", "old_balance_orig:int",
+                  "new_balance_orig:int"]</p>
             </div>
             <form>
               <FormGroup
@@ -69,7 +70,7 @@ class ContributeContract extends Component {
                 <FormControl.Feedback />  
               </FormGroup>
             </form>
-            <Button onClick={this.onSubmitBucket}>Submit data</Button>
+            <Button style = {sharpStyle} onClick={this.onSubmitBucket}>Submit data</Button>
           </Panel.Body>
         </Panel>
       </div>
