@@ -20,11 +20,8 @@ class ContributeContract extends Component {
   }
   render() {
     const sharpStyle = {
-      "borderRadius":0
-    };
-    const tagStyle = {
       "borderRadius":0,
-      "margin": "5px",
+      "fontSize": "20px"
     };
     console.log(this.props.contractName);
     return (

@@ -46,11 +46,13 @@ class ContractDetail extends Component {
   }
   render() {
     const sharpStyle = {
-      "borderRadius":0
+      "borderRadius":0,
+      "fontSize": "20px"
     };
     const tagStyle = {
       "borderRadius":0,
       "margin": "5px",
+      "fontSize": "20px"
     };
     let companyList = this.state.contractInfo.companies.map(
       (companyName, i) => {
@@ -76,7 +78,7 @@ class ContractDetail extends Component {
               <p>Description: {this.state.contractInfo.content} </p>
               <p>Pricing Rules: {"$2 base price"}</p>
               <p>Status: {this.state.contractInfo.status}</p>
-              <p>Content: {"training scripts"}</p>
+              <p><a href = {"https://github.com/anthonytec2/datawall/tree/master/model_training"}>Training Scripts</a></p>
               <p>Input data format: ["amount_local_currency:int", "old_balance_orig:int",
                   "new_balance_orig:int"]</p>
               <p>Companies:</p>
@@ -117,7 +119,7 @@ class ContractDetail extends Component {
               <FormControl.Feedback />  
             </FormGroup>
           </form>
-          <Button onClick={this.onSubmitQuery}>Submit Query</Button>
+          <Button style = {sharpStyle} onClick={this.onSubmitQuery}>Submit Query</Button>
           {queryResultDisplay}
           </Panel.Body>
         </Panel>

@@ -13,6 +13,7 @@ class SideBar extends Component {
     }
     const buttonStyleAdmin = {
       "borderRadius": 0,
+      "fontSize": "30px",
       "background-color": "#B31B1B"
     }
     return (
