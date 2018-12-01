@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+sklearn = "*"
+numpy = "*"
+scipy = "*"
+matplotlib = "*"
+tensorboardx = "*"
+argparse = "*"
+pandas = "*"
+xgboost = "*"
+google-cloud = "*"
+colorama = "*"
+torch = "==0.4.1"
+tqdm = "*"
+
+[requires]
+python_version = "3.7"

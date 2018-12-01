@@ -122,3 +122,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+Inference_Service/Pipfile.lock
+model_training/Pipfile.lock
