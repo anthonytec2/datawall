@@ -18,6 +18,8 @@ import os
 import pickle
 import socket
 import sys
+
+
 def get_results(y_pred, y_test):
     number_flagged_right = np.sum(y_pred[y_test == 1] == 1)
     number_flagged_wrong = np.sum(y_test == 1)-number_flagged_right
@@ -48,65 +50,72 @@ def train(X_train, y_train, X_test, y_test, i):
     model.save_model(f'{name}.model')
     return model
 
+
 def grab_data(i, client):
-    if i==-1:
+    if i == -1:
         print('Downloading Training Data')
         bucket = client.get_bucket('traina-data')
         blob = bucket.blob('test.csv')
         blob.download_to_filename('test.csv')
         data = np.genfromtxt('test.csv', delimiter=',')
-        X=data[:,0:7]
-        y=data[:,7]
+        X = data[:, 0:7]
+        y = data[:, 7]
         os.remove("test.csv")
-    elif i==0:
+    elif i == 0:
         print('Downloading Citi Data')
         bucket = client.get_bucket('cit-data')
         blob = bucket.blob('citi.csv')
         blob.download_to_filename('citi.csv')
         data = np.genfromtxt('citi.csv', delimiter=',')
-        X=data[:,0:7]
-        y=data[:,7]
+        X = data[:, 0:7]
+        y = data[:, 7]
         os.remove("citi.csv")
-    elif i==1:
+    elif i == 1:
         print('Downloading JPM Data')
         bucket = client.get_bucket('jpm-data')
         blob = bucket.blob('jpm.csv')
         blob.download_to_filename('jpm.csv')
         data = np.genfromtxt('jpm.csv', delimiter=',')
-        X=data[:,0:7]
-        y=data[:,7]
+        X = data[:, 0:7]
+        y = data[:, 7]
         os.remove("jpm.csv")
-    elif i==2:
+    elif i == 2:
         print('Downloading BOA Data')
         bucket = client.get_bucket('boa-data')
         blob = bucket.blob('boa.csv')
         blob.download_to_filename('boa.csv')
         data = np.genfromtxt('boa.csv', delimiter=',')
-        X=data[:,0:7]
-        y=data[:,7]
+        X = data[:, 0:7]
+        y = data[:, 7]
         os.remove("boa.csv")
     return X, y
 
-def export_model( amnt_data, client):
+
+def export_model(amnt_data, client):
     model = XGBClassifier()
     model.load_model('boa.model')
     output = open('model.pb', 'wb')
     pickle.dump([model, amnt_data], output)
     output.close()
-    bucket_test = client.get_bucket('traina-data') 
+    bucket_test = client.get_bucket('traina-data')
     blob_test = bucket_test.blob('model.pb')
     blob_test.upload_from_filename(filename='model.pb')
     os.remove('model.pb')
     print(Fore.GREEN+'Exported Model Sucessfully')
     return
+
+
 def send_signal_infnode():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = ('35.243.211.120', 10000)
     print('Connecting to port')
     sock.connect(server_address)
     sock.close()
+
+
 def main():
-    client = storage.Client.from_service_account_json('/home/abisulco/key.json')
+    client = storage.Client.from_service_account_json(
+        '/home/abisulco/key.json')
     '''
     init()
     gcpdata.init_demo()
@@ -134,7 +143,9 @@ def main():
             del boa_X_train, boa_y_train
         '''
     print('Model Finshed Training Begining Export')
-    export_model({'boa':555, 'jpm':333, 'citi':1111}, client)
+    export_model({'boa': 555, 'jpm': 333, 'citi': 1111}, client)
     send_signal_infnode()
+
+
 if __name__ == '__main__':
     main()

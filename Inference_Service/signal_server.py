@@ -13,6 +13,8 @@ import sys
 import subprocess
 import mongo
 import time
+
+
 def wait_for_signal():
     print('Waiting For Signal')
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -25,9 +27,10 @@ def wait_for_signal():
         break
     connection.close()
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     mongo.set_zero()
-    
+
     wait_for_signal()
     '''
     client = storage.Client.from_service_account_json('/home/abisulco/key.json')

@@ -13,8 +13,8 @@ from mongo import *
 import json
 from flask_cors import CORS, cross_origin
 app = Flask(__name__)
-cors=CORS(app)
-app.config['CORS_HEADERS']='Content-Type'
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 client = storage.Client.from_service_account_json('/home/abisulco/key.json')
 bucket = client.get_bucket('traina-data')
 blob = bucket.blob('model.pb')
@@ -28,9 +28,9 @@ os.remove('model.pb')
 @app.route('/cost_user/<user>', methods=["GET"])
 @cross_origin()
 def cost_user(user):
-    percent_dict={'boa':.33, 'jpm':.33, 'citi':.33}
-    cost, comp_dw, comp_part=calculate_payout(user, percent_dict)
-    return json.dumps({'cost':cost})
+    percent_dict = {'boa': .33, 'jpm': .33, 'citi': .33}
+    cost, comp_dw, comp_part = calculate_payout(user, percent_dict)
+    return json.dumps({'cost': cost})
 
 
 @app.route('/inf', methods=["POST"])
@@ -42,9 +42,9 @@ def runmodel():
     input_data = parsed_data['Data']
     print('USER:', user)
     print('Data: ', input_data)
-    percent_dict={'boa':.33, 'jpm':.33, 'citi':.33}
+    percent_dict = {'boa': .33, 'jpm': .33, 'citi': .33}
     print(calculate_payout(user, percent_dict))
-    cost, comp_dw, comp_part=calculate_payout(user, percent_dict)
+    cost, comp_dw, comp_part = calculate_payout(user, percent_dict)
     update_user(user, cost, comp_dw, comp_part)
     model._le = LabelEncoder().fit([0, 1])
     return str(model.predict(np.expand_dims(np.array(input_data), 0)))
@@ -55,12 +55,13 @@ def update_user(usera, cost, comp_dw, comp_part):
     new_inf = User.objects(user=usera)[0].num_inf+1
     User.objects(user=usera.lower()).update_one(
         payout=new_payout, num_inf=new_inf)
-    new_pat_dw=User.objects(user='datawall')[0].payout+comp_dw
+    new_pat_dw = User.objects(user='datawall')[0].payout+comp_dw
     User.objects(user='datawall').update_one(payout=new_pat_dw)
     for userb in comp_part:
         new_payout = User.objects(user=userb[0].lower())[0].payout+userb[1]
         User.objects(user=userb[0].lower()).update_one(payout=new_payout)
-    
+
+
 def calculate_payout(requestor, percent_dict, base_cost=2):
     comp_part = []
     comp_dw = 0
